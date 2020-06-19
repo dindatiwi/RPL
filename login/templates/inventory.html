@@ -1,0 +1,264 @@
+{% extends 'layout.html' %}
+{% block title %} Home {% endblock %}
+
+
+{% block body %}
+
+<div class="container mt-5">
+
+
+
+
+    <div class="starter-template">
+   
+   
+    <h1>Tampilkan Data</h1>
+   
+   
+    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Tambah Data</button>
+   
+   
+    <table class="table table-striped">
+   
+   
+    <thead>
+   
+   
+    <tr>
+   
+   
+    <td>No TV</td>
+   
+    <td>Jenis TV</td>
+   
+    <td>kondisi</td>
+   
+    <td>Status</td>
+
+   
+    </tr>
+   
+   
+    </thead>
+   
+   
+    <tbody>
+   
+   
+    {% for row in tv %}
+   
+   
+    <tr>
+   
+   
+    <td>{{ row.no_inv_tv}}</td>
+   
+    <td>{{ row.kode_jenis_tv }}</td>
+   
+    <td>{{ row.kondisi }}</td>
+   
+    <td>{{ row.status }}</td>
+   
+    <td>
+   
+   
+    <a href="#!" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modalEdit{{ row.no_inv_tv }}">Edit</a>
+   
+   
+    <a href="/hapusinv/{{ row.no_inv_tv }}" class="btn btn-danger btn-xs" onclick="return confirm('Yakin ingin hapus?')">Hapus</a>
+   
+   
+    </td>
+   
+   
+    </tr>
+   
+   
+   
+   
+    <!-- Modal -->
+   
+   
+    <div id="modalEdit{{ row.no_inv_tv }}" class="modal fade" role="dialog">
+   
+   
+    <div class="modal-dialog">
+   
+   
+    <div class="modal-content">
+   
+   
+    <div class="modal-header">
+   
+   
+    <button type="button" class="close" data-dismiss="modal">&times;</button>
+   
+   
+    <h4 class="modal-title">Edit Data</h4>
+   
+   
+    </div>
+   
+   
+    <div class="modal-body">
+   
+   
+    <form action="{{ url_for('updateinv') }}" method="POST">
+   
+   
+    <div class="form-group">
+   
+    <label>Kode Jenis TV:</label>
+    <input type="hidden" name="id" value="{{ row.no_inv_tv }}">
+    <input type="text" class="form-control" name="tv" value="{{ row.kode_jenis_tv }}">
+   
+    <label>Kondisi:</label>
+    <input type="text" class="form-control" name="kondisi" value="{{ row.kondisi }}">
+    <label>Status:</label>
+    <input type="text" class="form-control" name="status" value="{{ row.status }}">
+    </div>
+   
+   
+    <div class="form-group">
+   
+   
+    <button class="btn btn-warning" type="submit">Update</button>
+   
+   
+    </div>
+   
+   
+    </form>
+   
+   
+    </div>
+   
+   
+    <div class="modal-footer">
+   
+   
+    <button type="button" class="btn btn-default" data-dismiss="modal"></button>
+   
+   
+    </div>
+   
+   
+    </div>
+   
+   
+    </div>
+   
+   
+    </div>
+   
+   
+   
+   
+   {% else %}
+   
+   
+    <tr>
+   
+   
+    <td colspan="3">Tidak ada data</td>
+   
+   
+    </tr>
+   
+   
+   {% endfor %}
+   
+   
+    </tbody>
+   
+   
+    </table>
+   
+   
+    </div>
+
+    <div class="container">
+        <a href="home" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Kembali ke home</a>
+    </div>
+   </div>
+   
+   <!-- Modal -->
+   
+   
+   <div id="myModal" class="modal fade" role="dialog">
+   
+   
+    <div class="modal-dialog">
+   
+   
+    <div class="modal-content">
+   
+   
+    <div class="modal-header">
+   
+   
+    <h4 class="modal-title">Tambah Data</h4>
+    <button type="button" class="close" data-dismiss="modal">&times;</button>
+   
+    </div>
+   
+   
+    <div class="modal-body">
+   
+   
+    <form action="{{ url_for('simpaninv') }}" method="POST">
+   
+   
+    <div class="form-group">
+   
+   <label>No:</label>
+   <input type="text" class="form-control" name="id">
+    <label>TV:</label>
+    <input type="text" class="form-control" name="tv">
+    <label>Kondisi:</label>
+    <input type="text" class="form-control" name="kondisi">
+    <label>Status:</label>
+    <input type="text" class="form-control" name="status">
+    </div>
+   
+   
+    <div class="form-group">
+   
+   
+    <button class="btn btn-primary" type="submit">Simpan</button>
+   
+   
+    </div>
+   
+   
+    </form>
+   
+   
+    </div>
+   
+   
+    <div class="modal-footer">
+   
+   
+    <button type="button" class="btn btn-default" data-dismiss="modal"></button>
+   
+   
+    </div>
+   
+   
+    </div>
+   
+   
+    </div>
+   
+   
+   </div>
+   
+   
+    
+   
+   
+   
+   <!-- /.container -->
+
+{% endblock %}

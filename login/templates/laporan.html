@@ -1,0 +1,88 @@
+{% extends 'layout.html' %}
+{% block title %} Laporan {% endblock %}
+{% block body %}
+
+<div class="container mt-5">
+    <div class="starter-template">
+
+
+        <h2>Menampilkan Laporan Total penjualan</h2>
+        
+        <form action="{{ url_for('lapor') }}" method="POST" class="form-inline mb-5">
+            <div class="form-group col-sm-4">
+            <label class="mr-2"> dari tanggal : </label>
+            <input type="date" class="form-control" name="tgls">
+            </div>
+            <div class="form-group col-sm-4">
+                <label class="mr-2"> sampai tanggal :</label>
+                <input type="date" class="form-control" name="tgld">
+                </div>
+            <button class="btn btn-warning" type="submit">Submit</button>
+        </form>
+       
+        <table class="table table-striped mt-3">
+    
+    
+       
+        <thead>
+       
+       
+        <tr>
+       
+       
+        <td>Tanggal </td>
+       
+        <td>Pemasukan </td>
+       
+        </tr>
+       
+       
+        </thead>
+       
+       
+        <tbody>
+       
+       
+        {% for row in st %}
+       
+       
+        <tr>
+       
+        <td>{{ row.tanggal	 }}</td>
+       
+        <td>{{ row.biaya }}</td>
+       
+       
+        </tr>
+       
+       
+       {% else %}
+       
+       
+        <tr>
+       
+       
+        <td colspan="3">Tidak ada data</td>
+       
+       
+        </tr>
+       
+       
+       {% endfor %}
+       
+       
+        </tbody>
+       
+       
+        </table>
+       
+       
+    </div>
+    <div class="container">
+        <a href="home" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Kembali ke home</a>
+    </div>
+</div>
+
+
+
+{% endblock %}
